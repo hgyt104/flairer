@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 부등호는 cdata 로 묶어줘야한다. -->
+<mapper namespace ="stu.inflp.flairer.mapper.IndexMapper">
+<!--메인페이지 신상품 -->
+	<select id ="newproduct" resultType ="stu.inflp.flairer.vo.ProductVO">
+
+	SELECT * FROM (SELECT row_number() over(order by to_number(p.pcode) desc) AS num, p.* from product p WHERE category = #{category} ) <![CDATA[where num <= 4]]>
+	 
+		
+	</select>
+	
+	
+	
+</mapper>
+
+

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 부등호는 cdata 로 묶어줘야한다. -->
+<mapper namespace ="stu.inflp.flairer.mapper.AdminMapper">
+<!-- admin페이지 리스트-->
+	<select id="getList" resultType="map">
+			select * from ${table} 
+			<choose>
+				<when test ="table == 'product'">
+					where category = #{category} 
+				</when>
+				<when test="table == 'payment'">
+					<![CDATA[where active >= 2 ]]>
+				</when>
+			</choose>
+			order by to_number(${codeName})
+		</select>
+		
+		
+<!-- admin페이지 회원 조회 -->
+	<select id ="adminMember" resultType ="stu.inflp.flairer.vo.MemberVO">
+		SELECT * FROM member ORDER by to_number(mcode)
+	</select>	
+
+
+<!-- admin페이지 상품 조회 -->
+	<select id="adminProduct" resultType ="stu.inflp.flairer.vo.ProductVO">
+		SELECT * FROM product WHERE category = #{category} order by to_number(pcode)
+	</select>
+	
+	
+<!--admin페이지 게시판 조회	-->	
+	<select id="adminBoard" resultType ="stu.inflp.flairer.vo.BoardVO">
+		SELECT * FROM board ORDER BY to_number(bcode)
+	</select>
+	
+	
+<!--admin페이지 주문 조회-->		
+	<select id="adminPayment" resultType ="stu.inflp.flairer.vo.PaymentVO">
+		SELECT * FROM payment WHERE active <![CDATA[ >= 2]]>  ORDER BY to_number(pa_code)
+	</select>
+	
+
+<!--관리자페이지 총 수정 ,삭제-->
+	<update id="adminUpdate">
+      update ${tname} set ${name} = #{value} where ${codename} = #{code}
+   </update>
+   <delete id="adminDelete">
+      delete ${tname} where ${codename}=#{code}
+   </delete>
+ 
+ 
+<!-- 관리자 페이지에서 prodcut 물건 추가  -->
+   <insert id="insertProduct" >
+      insert INTO product(PCODE, NAME, PRICE, STOCK, CATEGORY, PICTUREURL, DES1, DES2, DES3) VALUES(SEQ_PRODUCT_PLUS.nextval, #{name}, #{price}, #{stock}, #{category}, #{pictureurl}, #{des1}, #{des2}, #{des3})
+   </insert>
+   
+<!-- 관리자 페이지에서 prodcut 물건 시퀀스 자동으로 추가  -->
+   <select id="getSeq" resultType="string">
+      SELECT pcode FROM (SELECT pcode FROM product ORDER BY to_number(pcode) DESC) WHERE ROWNUM = 1
+   </select>
+   
+   
+</mapper>
+
+

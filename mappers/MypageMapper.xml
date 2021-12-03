@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace ="stu.inflp.flairer.mapper.MypageMapper">
+  	<select id="myList" resultType ="stu.inflp.flairer.vo.OrderVO">
+  		SELECT pmt.pa_code, pdt.pictureurl, pdt.name AS pname ,pmt.amount, pdt.price, pmt.active, pmt.paydate FROM payment pmt, product pdt WHERE pmt.pcode = pdt.pcode AND pmt.active <![CDATA[> 1]]> AND pmt.mcode = #{mcode}  ORDER BY pmt.pa_code desc
+  	</select>
+  	
+  	<select id="payListCount" resultType = "map">
+  		SELECT * FROM (SELECT active c FROM payment WHERE mcode =#{mcode} group by pa_code, active) pivot(count(c) for c in (2,3,4))
+  	
+  	</select>
+
+  </mapper>

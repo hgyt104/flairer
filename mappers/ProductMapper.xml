@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace ="stu.inflp.flairer.mapper.ProductMapper">
+
+	<select id ="products" resultType ="stu.inflp.flairer.vo.ProductVO">
+	
+		SELECT * FROM product where category = 1
+		
+	</select>
+	<!-- 카테고리별 상품리스트 -->
+	<select id="selectProducts" resultType ="stu.inflp.flairer.vo.ProductVO">
+		SELECT * FROM product where category = #{category}   <!-- #[변수이름]  -->
+	</select>
+	
+	<!-- 코드별로 상품디테일리스트 -->
+	<select id="selectdetailProducts" resultType ="stu.inflp.flairer.vo.ProductVO">
+		SELECT * FROM product WHERE pcode = #{pcode}
+	</select>
+	<!-- 검색기능 -->
+	<select id="searchProduct" resultType="stu.inflp.flairer.vo.ProductVO">
+		SELECT * FROM product WHERE	name like '%' || #{name} || '%'
+	</select>
+</mapper>
+
+

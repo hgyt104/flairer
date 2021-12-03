@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 부등호는 cdata 로 묶어줘야한다. -->
+<mapper namespace ="stu.inflp.flairer.mapper.PaymentMapper">
+<!-- 상품 결제시 -->
+	<select id="getPayList" resultType="stu.inflp.flairer.vo.OrderVO">
+      SELECT 
+         pmt.PA_CODE, 
+         pmt.AMOUNT, 
+         pmt.ACTIVE, 
+         pmt.PAYDATE, 
+         mb.MCODE, 
+         mb.NAME as mname, 
+         mb.ADDRESS, 
+         mb.PHONE, 
+         pdt.PCODE, 
+         pdt.NAME as pname, 
+         pdt.PRICE, 
+         pdt.STOCK, 
+         pdt.PICTUREURL 
+      FROM 
+         MEMBER mb, 
+         PRODUCT pdt, 
+         PAYMENT pmt 
+      WHERE 
+         pmt.PCODE = pdt.PCODE AND 
+         pmt.MCODE = mb.MCODE AND 
+         pmt.ACTIVE = #{active} AND
+         pmt.mcode = #{mcode}
+   <if test='pcodes != null'>
+      and 
+      <foreach collection="pcodes" item="item" open="(" separator=" or " close=")">
+         pmt.pcode = #{item}
+      </foreach>
+      
+   </if>
+   
+   </select>
+	
+	
+	
+</mapper>

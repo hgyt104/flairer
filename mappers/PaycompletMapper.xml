@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="stu.inflp.flairer.mapper.PaycompletMapper">
+ 	<!-- 상품결제 완료시  -->
+ 	<select id="paycomplet" resultType ="string">
+ 		SELECT seq_payment_plus.nextval FROM dual
+ 	</select>
+ 	
+ 	
+ 	<update id="uppaycomplet">
+ 		UPDATE 
+ 		payment SET 
+ 		pa_code = seq_payment_plus.currval, 
+ 		active=2, 
+ 		paydate = CURRENT_TIMESTAMP 
+ 		WHERE 
+ 		pa_code =#{pa_code} AND 
+ 		mcode =#{mcode}
+ 		<if test='pcodes != null'>
+ 			and
+ 			<foreach collection="pcodes" item ="item" open="(" separator ="or" close=")">
+ 				pcode = #{item}
+ 			</foreach>
+ 		</if>
+ 	</update>
+ 	
+ 
+  </mapper> 

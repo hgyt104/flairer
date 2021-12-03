@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="stu.inflp.flairer.mapper.OrderMapper">
+  <!-- 장바구니 상품리스트 조회 장바구니 리스트 -->
+  	<select id="selectPayList" resultType = "stu.inflp.flairer.vo.OrderVO">
+  		SELECT pmt.pa_code, pmt.amount, pmt.active, pmt.paydate, mb.mcode, mb.name AS mname, mb.address, mb.phone, pdt.pcode, pdt.name AS pname, pdt.price, pdt.stock, pdt.pictureurl FROM member mb, product pdt, payment pmt WHERE pmt.pcode = pdt.pcode AND pmt.mcode = mb.mcode AND pmt.active = #{active} AND pmt.mcode =#{mcode}
+  	</select>
+ 
+  	
+  	<!-- 장바구니에 데이터 유무 체크 -->
+  	<select id="cartCheck" resultType ="stu.inflp.flairer.vo.PaymentVO">
+  		SELECT * FROM payment WHERE mcode = #{mcode} AND active = 1
+  	</select>
+  	
+  	<insert id="cartCheck1">
+  		INSERT INTO payment(pa_code , mcode, pcode, amount, active) VALUES(seq_payment_plus.NEXTVAL, #{mcode} ,#{pcode}, #{amount} ,1)
+  	</insert>
+  	
+  	<insert id="cartCheck2">
+  		INSERT INTO payment(pa_code ,mcode, pcode, amount, active) VALUES(#{pa_code} ,#{mcode}, #{pcode} ,#{amount} ,1)
+  	</insert>
+  	
+  	<update id="cartCheck3">
+  		UPDATE payment SET amount = #{amount} WHERE pcode = #{pcode} AND mcode = #{mcode} AND active = 1
+  	</update>
+  	<!-- 장바구니에 데이터 유무 체크 -->
+  	
+  </mapper>

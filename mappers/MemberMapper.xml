@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<!-- 부등호는 cdata 로 묶어줘야한다. -->
+<mapper namespace ="stu.inflp.flairer.mapper.MemberMapper">
+
+	<select id ="getmember" resultType ="stu.inflp.flairer.vo.MemberVO">
+		SELECT * FROM member WHERE userid = #{userid} 
+	</select>
+
+	<update id ="upmember" >
+		UPDATE member SET regdate = sysdate WHERE userid = #{userid} 	
+	</update>
+	
+	<!-- usercheck select -->
+	<select id="userch" resultType="string">
+		SELECT pwd FROM member WHERE userid = #{userid} and active =1
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="signupMember">
+		INSERT into member(mcode, name, userid, pwd, address, gender, phone, admin, regdate)values(seq_member_plus.NEXTVAL, #{name}, #{userid}, #{pwd}, #{address}, #{gender}, #{phone}, 0, sysdate)
+	</insert>
+	
+	<!-- 회원가입시 아이디 중복체크 -->
+	<select id="signupIdCheck" resultType = "stu.inflp.flairer.vo.MemberVO">
+		SELECT userid FROM member WHERE userid = #{userid}
+	</select>
+	
+	<!-- 아이디 비밀번호 찾기 -->
+	<select id="signIdFind" resultType= "stu.inflp.flairer.vo.MemberVO">
+		SELECT userid, pwd FROM member WHERE name = #{name} and phone = #{phone}
+	</select>
+	
+	<!--회원 정보를 변경하기 위함 -->
+	<update id="membermodify"> 
+		UPDATE member SET  pwd = #{pwd}, address = #{address}, phone = #{phone} where userid = #{userid}
+ 	</update>
+ 	
+ 	<select id="deletecheckpassword" resultType= "stu.inflp.flairer.vo.MemberVO">
+ 		SELECT * FROM member WHERE userid=#{userid} and pwd=#{pwd}
+ 	</select>
+ 	
+ 	<!--회원 정보를 휴먼상태로 바꾸기 위함 -->
+ 	<update id="deletemember"> 
+ 		UPDATE member SET active= 0 WHERE userid=#{userid} and pwd = #{pwd} 
+ 	
+ 	</update>
+</mapper>
+
+

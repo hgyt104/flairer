@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace ="stu.inflp.flairer.mapper.BoardMapper">
+ 	<!-- 게시판 전체  -->
+	<select id ="selectAllBoard" resultType ="stu.inflp.flairer.vo.BoardVO"> 
+	
+		SELECT * FROM board ORDER BY bcode DESC
+	</select>
+	<!-- 게시판 전체  -->
+ 	 <!-- 페이징 및 리스트 조회  -->   
+ 	<select id="boardCount" resultType="stu.inflp.flairer.vo.BoardVO">
+      select * from
+      (select row_number() over(order by b.bdate desc) 
+      as 
+      ksi, b.* from board b) 
+      where 
+      ksi <![CDATA[ <= ]]> #{page, jdbcType=VARCHAR} * #{pageDataCount, jdbcType=VARCHAR} 
+      and
+      ksi <![CDATA[ > ]]>(#{page, jdbcType=VARCHAR}-1) * #{pageDataCount, jdbcType=VARCHAR}
+   </select>
+   
+   <select id="boardPageCount" resultType="int">
+      select count(bcode) bCount from board
+   </select>
+   
+ 	 <!-- 페이징 및 리스트 조회 -->   
+	
+	<!-- 글작성  -->
+ 	<insert id="insertBoard">	
+ 		INSERT INTO board(bcode, bid, bpwd, btitle, bcontent) values(seq_board_plus.NEXTVAL, #{bid}, #{bpwd},#{btitle},#{bcontent})
+ 	</insert>
+ 
+ 	
+	<!--게시판 상세 -->
+	<select id="selectOneBoard" resultType ="stu.inflp.flairer.vo.BoardVO"> 
+		SELECT * FROM board WHERE bcode = #{bcode}
+	</select>
+	
+	
+	<!-- 조회수 증가 	 -->
+	<update id="upHit">	 
+		UPDATE board set bhit = bhit+1 WHERE bcode =#{bcode}
+	</update>
+	
+	
+ 	<!--수정 -->
+ 	<update id="modifyBoard">
+ 		UPDATE board set bpwd = #{bpwd}, btitle =#{btitle}, bcontent =#{bcontent} WHERE bid = #{bid} and bcode =#{bcode}
+ 	</update>
+ 	
+ 	
+	<!-- 수정,삭제시 비밀번호 체크  -->
+	<select id="checkpassWord" resultType ="stu.inflp.flairer.vo.BoardVO">
+		SELECT * FROM board WHRER bcode =#{bcode} and bpwd = #{bpwd}
+	</select>
+	
+	
+ 	<!--삭제 -->
+ 	<delete id="deleteBoard">
+ 		DELETE board WHERE bcode = #{bcode}
+ 	</delete>
+ 	
+ 	
+	<!--  댓글 -->
+   <select id="getBoardReply" resultType="stu.inflp.flairer.vo.ReplyVO">
+      SELECT rcode, rcontent, rbid, regdate FROM board_reply where bcode = #{bcode} order by rcode desc
+   </select>
+   
+   <select id="selectOneBoardReply" resultType ="stu.inflp.flairer.vo.ReplyVO">
+   	  SELECT * FROM board_reply WHERE rcode =#{rcode}
+   </select>
+   
+	<insert id="insertBoardReply" >
+      INSERT INTO board_reply(bcode, rcode, rcontent, rbid) VALUES (#{bcode}, seq_reply_plus.nextval, #{rcontent}, #{rbid})
+   </insert>
+   
+   	<update id="modifyBoardReply" >
+		UPDATE board_reply SET rcontent =#{rcontent} WHERE rcode =#{rcode}  	
+   	</update>
+   	
+   	<delete id="deleteBoardReply">
+   		DELETE FROM board_reply WHERE rcode = #{rcode}
+   	</delete>
+	<!--  댓글 -->
+ 	
+ 	
+ 	
+</mapper> 
