@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Bad+Script&display=swap');
+
+#cart_table {
+    border-collapse: collapse;
+    width: 1500px;
+    height: 869px;
+}
+#cart_table td{
+    border:solid 1px #fafafa
+}
+#second_table {
+    border-collapse: collapse;
+    vertical-align:top;
+    width: 1050px;
+}
+
+#blank {
+    background-color: #f2f2f2;
+    line-height: 35px;
+}
+#npay_order {
+    width: 232px;
+    height: 37px;
+    background-color: white;
+    color:#00bd39;
+    border: solid 1px #e5e5e5;
+    font-weight: bold;
+    
+}
+#all_order, #sel_order {
+    font-size: 16px;
+    font-weight: bold;
+    border: solid 1px #000000;
+    width: 280px;
+    height: 60px;
+}
+#all_order {
+    background-color: #000000;
+    color:white;
+}
+#sel_order {
+    background-color: white;
+}
+#process {text-align: center;}
+#order_page {
+    width: 328px;
+    height: 800px;
+    padding: 43px 30px;
+   
+}
+#second_area {
+    vertical-align: top;
+}
+.amount {
+    width: 100px;
+    height: 30px;
+    background-color: white;
+    border: solid 1px #000000;
+}
+.select {
+    width: 130px;
+    height: 40px;
+    background-color: white;
+    border: solid 1px #000000;
+    float: right;
+}
+
+#title, .title {
+	font-size: 22px;
+	font-weight: bold;
+	text-align: left;
+}
+
+#first_tr {
+	height: 66px;
+	text-align: center;
+}
+
+.cart_content {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.cart_content2 {
+	height : 60px;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.second_tr {
+	height: 130px;
+	text-align: center;
+}
+
+#third_table {
+	width : 1050px;
+}
+
+#second_table tr th {
+	background-color : #f2f2f2;
+}
+
+#third_table th{
+	text-align : center;
+	background-color : #f2f2f2;
+}

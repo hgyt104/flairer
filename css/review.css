@@ -1,0 +1,26 @@
+th, td {
+    text-align: center;
+}
+.bot_line {
+    border-bottom: 1px solid #6c757d;
+}
+.form-control {
+    border-color: #6c757d;
+}
+.page-link {
+    color: #6c757d;
+}
+.page-link:hover {
+    color: #6c757d;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}
+.page-item.active .page-link {
+    color: white;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+.page-item.disabled .page-link {
+    color: #e5e5e5;
+}
+

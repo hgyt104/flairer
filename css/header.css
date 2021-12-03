@@ -1,0 +1,74 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Bad+Script&display=swap'); */
+
+/*헤더 위 공백*/
+#blank_top { 
+    height: 50px;
+}
+
+ /*nav css */
+
+ /* dropdown*/
+.dropdown-toggle::after{
+    display: none;
+}
+.dropdown-menu{
+    border: 0px;
+}
+.dropdown-item:hover, .dropdown-item:focus{
+    color: red;
+    background-color: transparent;
+}
+.dropdown:hover .dropdown-menu{
+    display: block;
+    margin-top: 0;
+}
+/* nav */
+nav{
+    font-family: '300' !important; 
+}
+
+
+.logoname{
+    font-size: 50px;
+    font-family: 'bad';
+    padding-top: 10px;
+}
+a,li {
+    color: black !important;
+}
+.nav_img{
+    text-align: center; 
+}
+.navname{
+   font-size: smaller;
+   text-align: center;
+   
+  }
+/* search */
+#searchbox{
+    text-align :center;
+    align-content: center;
+    width: 190px !important;
+}
+#searchid{
+	
+}
+
+main{
+ 	padding-top: 150px;
+}
+.icon1 {
+    margin-left: 20px;
+    text-align: center;
+}
+li {
+    list-style-type: none;
+}
+.btnall{
+	position:relative !important;
+}
+.btn{
+	margin-right: 5px;
+}
+	
+

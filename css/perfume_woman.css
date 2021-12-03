@@ -1,0 +1,158 @@
+
+#list #img_box{
+    margin-left: 60px;
+    margin-right: 50px;
+}
+#perfum_name{
+    margin: 20px;
+    padding-top: 30px;
+    border-bottom: 1px solid #a39d9d;
+    margin-bottom: 1rem;
+    
+    
+}
+ 
+/*향수 이미지 사진 가운데  정렬 */
+#img_box{
+    display : flex;
+    justify-content : center;
+    margin: 15px;
+    margin-top: 100px;
+    margin-right: 0px;
+    padding: 15px;
+    padding-right: 0px;
+    width: 450px;
+    height: 450px;
+   
+}
+/* 상품명 제목  여자향수  & p태그들  */
+p{
+    text-align: center;
+    font-size: 30px;
+    padding-bottom: 20px;
+    padding-top: 30px;
+}
+
+/*ul 상품명, 판매가, 적립금 ,금액 등등 */
+ul {
+    list-style: none;
+    text-align: left;
+}
+/* list_box들 */
+.list_box1{
+    border-bottom: 1px solid #a39d9d;
+    margin: 15px;
+    padding: 15px;
+}
+.list_box2{
+    border-bottom: 1px solid #a39d9d;
+    margin: 15px;
+    padding: 15px;
+}
+/* li 리스트들 크기 조정 */
+.li-1 {
+    margin: 20px;
+}
+.li-2{
+    margin-left: 20px;
+    margin-bottom: 15px;
+
+}
+.li-3{
+    margin-left: 20px;
+    margin-bottom: 50px;
+    
+}
+/*구매하기, 장바구니 버튼 */
+#btn{
+    text-align: center;
+    margin: 15px;
+    padding: 15px;
+}
+.btn_1{
+    border: 1px solid black;
+    border-radius: 10px;
+    color: white;
+    background-color: rgb(187, 148, 133);
+    list-style: none;
+    box-shadow: 2px 3px 0px 0px #000; 
+    margin: 8px;
+    padding: 8px;
+}
+.btn_2{
+    border: 1px solid black;
+    border-radius: 10px;
+    color: white;
+    background-color: rgb(187, 148, 133);
+    box-shadow: 2px 3px 0px 0px #000;
+    margin: 8px;
+    padding: 8px;
+}
+/* 금액칸 */
+.money_box{
+    border-bottom: 1px solid #a39d9d;
+    margin: 15px;
+    padding: 15px;
+    border-top: 1px solid #a39d9d;
+  
+}
+.t_t{
+    text-align: center;
+    font-size: 22px;
+    margin: 15px;
+    padding: 15px;
+}
+
+/* a 태그 밑줄  없애기 */
+a {
+    text-decoration: none  !important;
+    text-align: center;
+   
+ }
+ /*상세정보  시작 */
+ .s_p{
+    background-color: #f8f8f8;
+    font-size: 15px;
+    border-radius: 10px;
+    border-collapse: collapse;
+    margin: 15px;
+    padding: 15px;
+ }
+ .s_p_ul{
+     width: 100%;
+     display: inline;
+     text-align: center;
+     margin: 15px;
+     padding: 15px;
+ }
+ /* 판매자 주의사항*/
+ .kilian{
+     border-radius: 10px;
+     background-color: #f8f8f8;
+     text-align: center;
+     display : flex;
+     justify-content : center;
+     
+ }
+ /* 마지막 이미지 */
+.img_p{
+    margin-left: 10px;
+    margin-top: 100px;
+    text-align: center;
+    display : flex;
+    justify-content : center;
+  
+}
+/* 위로 올라가기 버튼*/
+.Top_btn{
+    text-align: center;
+    margin: 15px;
+    padding: 15px;
+}
+.button{
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    margin: 15px;
+    padding: 15px;
+}
+

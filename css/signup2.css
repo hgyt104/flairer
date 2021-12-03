@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Bad+Script&display=swap');
+@font-face {
+    font-family: 'THE오키도키';
+    src:url("../font/THEOkiDoki.ttf");
+}
+
+#info {
+    margin-top:50px;
+}
+
+hr{
+    margin-top: 15px;
+    border-bottom: 3px solid #000;
+    
+}
+td > input{
+	margin: 15px;
+}
+
+#title {
+    font-size: 40px;
+    text-align: center;
+}
+
+.col-md-auto {
+	line-height :40px;
+}
+#line {margin-top : 30px;}
+.line{
+    border:1px solid #f2f2f2;
+    height: 60px;
+    width: 130px;
+    background-color: #f8f8f8;
+    padding-left : 15px;
+    margin-right : 55px;   
+    font-size:14px;
+}
+
+#btn1 {
+    width: 190px;
+    height: 60px;
+    margin-left: 100px;
+    margin-top: 50px;
+    margin-bottom: 60px;
+    background-color: #000;
+    color: white;
+}
+
+#btn2 {
+    width: 190px;
+    height: 60px;
+    margin-left: 100px;
+    margin-top: 50px;
+    margin-bottom: 60px;
+    background-color: white;
+    color: black;
+}
+
+.dot {color : red;}
+
+#adr {width : 500px;}
+#ano {color : red; font-size:12px;}
+#alert-success {
+	display: none;
+	color : green;
+	font-size:12px;
+}
+
+#alert-danger {
+	display: none;
+	color : red;
+	font-size:12px;
+}

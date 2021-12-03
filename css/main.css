@@ -1,0 +1,59 @@
+h5 {
+    font-size:13px;
+}
+
+
+
+span {
+    font-size:15px;
+    font-family: 'THE오키도키';
+}
+
+.slide {
+    margin-top:40px;
+    margin-left:180px;
+    width: 75%;
+}
+.slide img {
+    height: 460px;
+}
+
+#main_phrase {
+    margin:100px 0px;
+    font-family: 'Bad Script' !important;
+    text-align: center;
+    font-size:17px;
+    color:rgb(122, 113, 113);
+}
+
+#bestitem {
+    font-family: '300';
+    font-size: 30px;
+    text-align: center;
+}
+
+#woman_best div {
+    display: inline-block;
+    width: 22%;
+}
+
+#man_best div {
+	
+    display: inline-block;
+    width: 22%;
+}
+
+#man_best h2 {
+	font-family: 'Bad Script' !important;
+    margin-top: 50px;
+}
+
+#bestitem img {
+    width: 100%;
+}
+
+.hide1 li {
+   padding:0px;
+   margin:0px;
+}
+

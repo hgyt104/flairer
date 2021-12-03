@@ -1,0 +1,98 @@
+/**
+ * 작성자 : 김상
+ * 설명 : 체크 박스 감지
+ * 전역 변수 : dms(부분 체크 박스 배열)
+ * 			 dmSize(체크 된 체크박스 개수)
+ * 			 ttcs(총 가격 스팬 배열)
+ * 전역 상수 : ttValue(전체 물건 가격)
+ */
+ 
+ $(function() {
+ 	//선언부
+ 	let dms = $('.dm');
+	let dmSize = $(".dm:checked").length;
+	let ttcs = $('.ttc');
+	
+	const ttValue =((ttcs[0].textContent)*1).toLocaleString()+'원';
+	
+	//페이지 로딩시 호출
+	changeTotal(true, null);
+
+	$('.second_tr').each(function(index) {
+		const txtPrice = $(this).find('.price').text();
+		const txtTotal = $(this).find('.total').text();
+
+		$(this).find('.price').text((txtPrice*1).toLocaleString()+'원');
+		$(this).find('.total').text((txtTotal*1).toLocaleString()+'원');
+	});
+
+ 	// 전체 선택 체크박스 감지
+ 	$('#isall').change(function() {
+ 		dms = $('.dm');
+	
+ 		for(let i = 0; i < dms.length; i++) {
+ 			dms[i].checked = $(this)[0].checked;
+  		}
+  		
+  		changeTotal($(this)[0].checked, null);
+
+		changeIdCount();
+ 	});
+ 	
+	// 부분 선택 체크박스 감지
+ 	$('.dm').change(function() {
+ 		dms = $('.dm');
+ 		let ck_all = $('#isall')[0];
+ 		
+ 		let intTotal = $('.ttc')[0].textContent.replace(",", "").replace("원","")*1;
+		const price = $(this).parents('.second_tr').find('.total').text().replace(",", "").replace("원","")*1;
+		
+ 		ck_all.checked = true;
+	
+ 		for(let i = 0; i < dms.length; i++) {
+ 			if(!dms[i].checked) {
+				ck_all.checked = dms[i].checked;
+				break;
+			}
+  		}
+
+		changeIdCount();
+
+		intTotal = ($(this).is(':checked') ? (intTotal + price) : (intTotal - price)).toLocaleString() + '원';
+		changeTotal(true, intTotal);
+ 	});
+	
+	//체크 된 체크박스 개수 텍스트 변환
+	function changeIdCount() {
+		dmSize = $(".dm:checked").length;
+		$("#count").text(dmSize);
+	}
+
+	//물건 총 가격 계산
+	function changeTotal(bool, total) {
+		let stVal = ttValue;
+		
+		if(total != null) stVal = total;
+	
+		if(!bool) stVal = '0원';
+		
+		ttcs[0].innerText = stVal;
+		ttcs[1].innerText = stVal;
+	}
+	
+	$('#all_order').click(function(){
+		let str = "";
+	  	$(".dm:checked").each(function(index, elm){
+	  		str += $(this).data("pcode") +'|';
+	  	});
+	  	str = str.slice(0, -1);
+	  	if(str == "") {
+	  		alert("1개 이상 선택하여 주세요");
+	  	} else {
+	  		$("#pids").val(str);
+	  		$('#orderForm').submit();
+	  	}
+	});
+ });
+ 
+ 

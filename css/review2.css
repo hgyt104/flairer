@@ -1,0 +1,50 @@
+#adminnav{
+	margin-bottom : 15px;
+	font-size: 25px;
+}
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th, td {
+	background: #fff;
+	padding: 8px 16px;
+}
+
+.tableFixHead {
+	overflow: auto;
+	height: 600px;
+}
+
+.tableFixHead thead th {
+	position: sticky;
+	top: 0;
+}
+
+
+.per5 {width:5%}
+.per6 {width:6%}
+.per4 {width:4%}
+.per10 {width:10%}
+.per9 {width:9%}
+.per15 {width:15%}
+.per14 {width:14%}
+.per20 {width:20%}
+.per25 {width:25%}
+.per30 {width:30%}
+.per35 {width:35%}
+.per55 {width:55%}
+.px9 {width:9px}
+
+
+.t1, .t2, .t7, .t9, .t10{width:5%}
+.t3, .t4{width:15%}
+.t5{width:25%}
+.t6, .t8{width:10%}
+
+.th5 {width:5%}
+.th15 {width:15%}
+.th25 {width:25%}
+.th10 {width:10%}
+.blank {width:9px}

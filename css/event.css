@@ -1,0 +1,81 @@
+/* 웹폰트 */
+@font-face {
+    font-family: 'fontello';
+    src: url('../font/fontello.eot?735653');
+    src: url('../font/fontello.eot?735653#iefix') format('embedded-opentype'),
+         url('../font/fontello.woff?735653') format('woff'),
+         url('../font/fontello.ttf?735653') format('truetype'),
+         url('../font/fontello.svg?735653#fontello') format('svg');
+    font-weight: normal;
+    font-style: normal;
+  }
+/* 웹폰트 END */
+
+/* 이벤트 css */
+.container-fluid {
+    margin-bottom: 50px;
+}
+
+
+/* .top_area {
+    margin-bottom: 50px;
+} */
+
+.top_area h1 {
+    font-size: 50px;
+    font-family: 'Bad Script';
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+#contents {
+    list-style: none;
+    padding-right: 300px;
+}
+
+.sub_con1 {
+    color: #aaaaaa;
+}
+
+.sub_con2 {
+    color: #ff5919;
+}
+
+.sub_con3 {
+    margin-left: 500px;
+    margin-bottom: 15px;
+}
+
+.sub_con4 {
+    background-color: #dedede;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.bt {
+    background-color: #ff5919;
+    color: white;
+    border: solid 1px #ff5919;
+}
+
+.bt1 {
+    width: 90px;
+    height: 37px;
+}
+
+.bt2 {
+    width: 125px;
+    height: 37px;
+}
+
+.font_icon {
+    font-family: "fontello";
+    margin-right: 600px;
+    margin-bottom: 50px;
+    color: #777777;
+}
+.text_line {
+    padding-left: 30px;
+    font-size: 18px;
+}
+/* 이벤트 CSS END */

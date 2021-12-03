@@ -1,0 +1,140 @@
+.replytable{
+	border: 1px solid ;
+	border-radius : 5px;
+
+	border-style : hidden;
+	box-shadow: 0 0 0 1px gray;
+	
+}
+.reply{
+	border:1px solid gray;
+}
+
+
+/* 리스트 */
+th, td {
+    text-align: center;
+}
+#toptitle {
+	border-bottom : black 1px;
+	border-bottom-style : solid;
+	
+}
+.title {
+	height : 45px;
+	font-size : 20px;
+}
+
+
+#line {
+	height : 55px;
+	
+	cursor:pointer;
+}
+
+#line:hover {
+    background-color: #FFFAE1;
+    text-color: #1D438A;
+}
+
+a {
+	color : black;
+	text-decoration-line:none;
+}
+
+#list {
+	margin-bottom: 30px;
+}
+
+#pageing{
+	display:inline-block;
+	float: left;
+    position: relative;
+    left: 30%;
+    
+}
+.bpbutton:hover{
+	background-color : black;
+}
+#btn1 {
+	display: inline-block;
+	float:right;
+}
+
+
+#btn3 {
+	display: inline-block;
+	float:right;
+	margin-right : 100px;
+}
+
+.btn{
+	border: 1px solid;
+	border-radius: .25rem;
+	align: center;
+	display: inline-block;
+	
+	position: relative !important;
+	
+	
+
+	margin-right : 5px;
+}
+#button-addon2{
+	right: 0%;
+}
+
+
+.btn-outline-secondary:hover {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+    right: 50%;
+}
+
+/* 리스트 */
+
+.blank {
+	text-align: left;
+}
+
+.subhead {
+	background-color: #6c757d;
+	width : 100px;
+	height : 50px;
+}
+
+/* 상세보기 */
+.subhead2 {
+	background-color: #6c757d;
+	width : 100px;
+	height : 50px;
+} 
+.blank2 {
+	text-align: center;
+	width : 300px;
+}
+.blank3 {
+	text-align: left;
+
+}
+
+#test1 {
+	overflow: auto;
+    white-space: pre-wrap;
+
+}
+/* 페이징 처리 */
+.page-link {
+    color: #6c757d;
+}
+.page-link:hover {
+    color: #6c757d;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}
+.page-item.active .page-link {
+    color: white;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
