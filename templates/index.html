@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="layouts/layout">
+<meta charset="UTF-8">
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/main.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/jquery/jquery.bxslider.min.css}">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+    <script type="text/javascript" th:src="@{/jquery/jquery.bxslider.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" th:src="@{/js/main.js}"></script>
+    <script th:inline="javascript" th:if="${msg ne null}">
+        alert(/*[[${msg}]]*/);
+    </script>
+</th:block>
+
+<main layout:fragment="content" class="container-fluid">
+    <div>
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <a th:href="@{/prod/woman}">
+                        <img th:src="@{/img/slide/slide_woman_01.jpg}" class="d-block w-100" alt="슬라이드 1번이미지">
+                    </a>
+                </div>
+                <div class="carousel-item">
+                    <a th:href="@{/prod/man}">
+                        <img th:src="@{/img/slide/slide_man_01.jpg}" class="d-block w-100" alt="슬라이드 2번이미지">
+                    </a>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    <!-- 메인 향수 글귀 -->
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8" id="main_phrase">
+            <p>"향수는 새 드레스와 같아서 당신을 아주 멋지게 만듭니다." - 에스티 로더<br>
+                "Perfume is like a new dress, it makes you quite simply marvelous." - Estee Lauder
+            </p>
+            <p>
+                "향수는 냄새의 이야기이며, 때로는 기억의 시이기도 합니다." - 장 끌로드 엘레나<br>
+                "Perfume is a story in odor, sometimes poetry in memory." - Jean Claude Ellena
+            </p>
+        </div>
+        <div class="col-2"></div>
+    </div>
+    <!--카테고리별 신상품-->
+    <div class="row" id="bestitem" th:each="product,status : ${nproduct} ">
+        <div class="col-1"></div>
+        <div class="col-10" id="man_best" th:switch="${status.index}">
+            <h2 th:case="0"> Man New Product</h2>
+            <h2 th:case="1"> Woman New Product</h2>
+            <h2 th:case="2"> Defuser New Product</h2>
+            <h2 th:case="3"> Candle New Product</h2>
+            <hr>
+            <div th:each="prod : ${product}">
+                <a
+                    th:href="@{/prod/} + ${(status.index == 0) ? 'man' : ((status.index == 1) ? 'woman' : ((status.index == 2) ? 'defuser' : 'candle'))} +'/'+${prod.pcode}">
+                    <img th:src="@{/img/} + ${prod.pictureurl}">
+                </a>
+                <span th:text="${prod.name}">${prod.name}</span>
+                <br>
+                <span class="main_price" th:text=${prod.price}></span>
+                <span>원</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-1"></div>
+</main>
+
+</html>

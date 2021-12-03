@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="layouts/layout">
+<meta charset="UTF-8">
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/signin.css}">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+    <script type="text/javascript" th:src="@{/js/signup.js}"></script>
+    <script th:inline="javascript" th:if="${msg ne null}">
+        alert(/*[[${msg}]]*/);
+    </script>
+</th:block>
+
+<main layout:fragment="content" class="container-fluid">
+    <div class="row" id="main">
+        <div class="col-10  offset-1">
+            <div class="col-2"></div>
+            <div class="col-4" style="margin-top: 50px;">
+                <p id="p1">회원로그인</p>
+                <p id="p2">
+                    가입하신 아이디와 비밀번호를 입력해주세요.<br>비밀번호는 대소문자를 구분합니다.
+                </p>
+                <form th:action="@{/signin}" method="post" name="frm">
+                    <input type="text" placeholder=" 아이디" id="input" name="userid">
+                    <input type="password" placeholder=" 비밀번호" id="input" name="pwd">
+                    <button type="submit" id="btn" onclick="return loginCheck()">
+                        <b>LOG-IN</b>
+                    </button>
+                </form>
+            </div>
+            <div class="col-4" id="margin">
+                <p id="p1">회원가입</p>
+                <p id="p2">
+                    아직 회원이 아니신가요?<br>회원가입을 하시면 다양한 혜택을 편리하게 이용하실 수 있습니다.
+                </p>
+                <button id="btn2" th:onclick="'location.href=\''+ @{/signupview} +'\''">
+                    <b>JOIN-US</b>
+                </button>
+                <p id="p2">
+                    아이디 혹은 비밀번호를 잊으셨나요?<br>간단한 정보를 입력 후 잃어버린 정보를 찾으실 수 있습니다.
+                </p>
+                <button id="btn2" onclick="idFind()">
+                    <b>ID/PASSWORD</b>
+                </button>
+                <br>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+</main>
+
+</html>

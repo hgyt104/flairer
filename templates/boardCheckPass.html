@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+<!-- index.html 고유 CSS 추가 -->
+
+<head>
+	<link type="text/css" rel="stylesheet" th:href="@{/css/review.css}">
+
+
+	<!-- index.html 고유 스크립트 추가 -->
+
+	<script type="text/javascript" th:src="@{/jquery/jquery-3.6.0.js}"></script>
+	<script type="text/javascript" th:src="@{/bootstrap/bootstrap.bundle.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/board.js}"></script>
+</head>
+
+<body>
+	<main class="container-fluid">
+		<!-- 비밀번호 확인 창 -->
+		<div style="text-align:center;">
+			<h1>비밀번호 확인</h1>
+			<form th:action="@{/board/boardcheck}" name="frm" method="get">
+				<input type="hidden" name="command" th:value="BoardController">
+				<input type="hidden" name="bcode" th:value="${param.bcode }">
+				<table style="margin:auto">
+					<tr>
+						<th>비밀번호</th>
+						<td><input type="password" name="bpwd"></td>
+					</tr>
+				</table>
+				<br> <input type="submit" th:value="확인" th:onclick="return bpwdCheck()"> <br>
+				<br>
+				<p th:text="${msg }"></p>
+			</form>
+		</div>
+	</main>
+</body>
+
+</html>

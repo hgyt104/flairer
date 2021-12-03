@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+<nav th:fragment="headerFragment" class="navbar navbar-expand bg-light fixed-top ">
+    <div class="container-fluid justify-content-around">
+        <div class="d-flex justify-content-start">
+            <a class="navbar-brand" th:href="@{/}">
+                <h1 class="logoname"> Sentir L'odeur</h1>
+            </a>
+        </div>
+        <div class="d-flex justify-content-center " id="header_nav">
+            <ul class="navbar-nav ">
+                <li class="nav-item dropdown mx-3">
+                    <a class="nav-link dropdown-toggle" th:href="@{#}" role="button"
+                        data-bs-toggle="dropdown">Perfume</a>
+                    <ul class="nav_hide dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" th:href="@{/prod/man}">Man</a></li>
+                        <li><a class="dropdown-item" th:href="@{/prod/woman}">Woman</a></li>
+                    </ul>
+                <li class="nav-item mx-3"><a class="nav-link" th:href="@{/prod/defuser}">Defuser</a></li>
+                <li class="nav-item mx-3"><a class="nav-link" th:href="@{/prod/candle}">Candle</a></li>
+                <li class="nav-item mx-3"><a class="nav-link" th:href="@{/board/}">Review</a></li>
+            </ul>
+        </div>
+
+        <div class="d-flex justify-content-end">
+
+            <ul class="navbar-nav ">
+                <li class="nav-item mx-2" th:if="${session.loginUser  == null}">
+                    <a class="nav-link " th:href="@{/sign}">
+                        <img class="nav_img" th:src="@{/img/icon/header_login_icon.png}"></a>
+                    <h5 class="navname">login</h5>
+                </li>
+                <li class="nav-item mx-2" th:if="${session.loginUser != null}">
+                    <a class="nav-link " th:href="@{/signout}">
+                        <img class="nav_img" th:src="@{/img/icon/header_logout_icon.png}"></a>
+                    <h5 class="navname">logout</h5>
+                </li>
+
+                <li class="nav-item mx-2">
+                    <a class="nav-link " th:href="@{/mypage/mypage}">
+                        <img class="nav_img" th:src="@{/img/icon/header_mypage_icon.png}"></a>
+                    <h5 class="navname">mypage</h5>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link" th:href="@{/cart/cartlist}">
+                        <img class="nav_img" th:src="@{/img/icon/header_cart_icon.png}"></a>
+                    <h5 class="navname">cart</h5>
+                </li>
+            </ul>
+            <form name="search-form">
+                <div class="input-group mx-2  " id="searchbox">
+                    <input id="searchid" name="name" type="search" class="form-control " placeholder="입력해주세요"
+                        aria-label="Search">
+                    <button class="btn btn-outline-secondary" id="button-addon2">
+                        <img class="nav_img" th:src="@{/img/icon/header_search_icon.png}">
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</nav>
+
+</html>

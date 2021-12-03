@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout.html}">
+<meta charset="UTF-8" />
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+	<link type="text/css" rel="stylesheet" th:href="@{/css/cart.css}">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+	<script type="text/javascript" th:src="@{/js/payment.js}"></script>
+</th:block>
+
+<main layout:fragment="content" class="container-fluid">
+	<!--결제페이지 시작-->
+	<div class="row">
+		<div class="col-8 offset-2">
+			<div class="row my-5 py-5">
+				<div class="col-8 offset-2 align-middle">
+					<h1 class="text-center">Order</h1>
+				</div>
+			</div>
+			<div class="row">
+				<div id="main_cart">
+					<table id="cart_table">
+						<tbody>
+							<tr>
+								<td style="vertical-align: top;">
+									<div id="second_area">
+										<form action="" method="post" id="payment_form">
+											<table id="second_table">
+												<tbody>
+													<tr>
+														<td class="title" colspan="6"
+															style="border-bottom: solid 1px #000000;"
+															th:text="'총 '+ ${#lists.size(payments)} + '개의 상품'"></td>
+													</tr>
+													<tr id="first_tr">
+														<th style=" width: 10%;">
+															<input type="checkbox" checked class="cbox" id="isall"
+																value="">
+														</th>
+														<th class="cart_content" style=" width: 25%;">상품 정보</th>
+														<th class="cart_content" style=" width: 25%;"> 상품명</th>
+														<th class="cart_content" style=" width: 10%;"> 수량</th>
+														<th class="cart_content" style=" width: 15%;"> 상품금액</th>
+														<th class="cart_content" style=" width: 15%;"> 합계금액</th>
+													</tr>
+													<tr class="second_tr" th:each="payment : ${payments }">
+														<td>
+															<input type="checkbox" checked class="cbox dm" value="D"
+																th:data-pcode="${payment.pcode }"
+																th:data-pa_code="${payment.pa_code }">
+														</td>
+														<td>
+															<img style="width: 70px; height: 100px; margin-left: ‒-20;"
+																th:src="@{/img/} + ${payment.pictureurl }">
+														</td>
+
+														<td class="cart_content" th:text="${payment.pname }"></td>
+														<td class="cart_content amount" th:text="${payment.amount }">
+														</td>
+														<td class="cart_content price" th:text="${payment.price }"></td>
+														<td class="cart_content total"
+															th:text="${payment.amount * payment.price }"></td>
+													</tr>
+												</tbody>
+											</table>
+											<table id="third_table">
+												<tr>
+													<td class="title" colspan="2"
+														style="border-bottom: solid 1px #000000;"> 결제 정보</td>
+												</tr>
+												<tr>
+													<th class="cart_content2 ">주문자</th>
+													<td class="cart_content2" th:text="'  '+${member.name }"></td>
+												</tr>
+												<tr>
+													<th class="cart_content2">연락처</th>
+													<td class="cart_content2" th:text="'  '+${member.phone }"></td>
+												</tr>
+												<tr>
+													<th class="cart_content2">배송지</th>
+													<td class="cart_content2" th:text="'  '+${member.address }"></td>
+												</tr>
+												<tr>
+													<th class="cart_content2">일반 결제</th>
+													<td><label for="phone_pay">&nbsp;&nbsp;휴대폰 결제&nbsp;</label><input
+															id="phone_pay" type="radio"
+															name="payment">&nbsp;&nbsp;&nbsp;
+														<label for="bank_pay">무통장 입금&nbsp;</label><input id="bank_pay"
+															type="radio" name="payment">&nbsp;&nbsp;&nbsp;
+														<label for="card_pay">신용카드 결제&nbsp;</label><input id="card_pay"
+															type="radio" name="payment">
+													</td>
+												</tr>
+											</table>
+										</form>
+									</div>
+								</td>
+								<td id="blank">
+									<div id="order_page">
+										<span style="font-size: 22px; font-family: 'Noto Sans KR'; font-weight: bold;">총
+											<span id="count" th:text="${#lists.size(payments)}"></span>개의
+											상품금액</span><br><br>
+										<span style="font-size: 16px;">총 상품금액</span>
+										<span class="ttc"
+											style="font-size: 20px; font-family: 'Noto Sans KR'; font-weight: bold; float: right;"
+											th:text="${totalCnt}"></span><br>
+										<span style="font-size: 16px;">배송비</span>
+										<span style="font-size: 20px;font-weight: bold; float: right;">평생 무료</span>
+										<hr>
+										<span style="font-size: 24px; font-weight: bold;">TOTAL</span>
+										<span class="ttc"
+											style="font-size: 24px; font-family: 'Noto Sans KR'; font-weight: bold; float: right;"
+											th:text="${totalCnt}"></span><br><br>
+										<input type="button" id="all_order" style="margin-bottom: 10px;" value="결제 하기">
+										<hr>
+										<form id="orderForm" method="post" th:action="@{/paycomplet/paycompletlist}">
+											<input type="hidden" name="pids" id="pids" value="">
+											<input type="hidden" name="pa_code" id="pa_code" value="">
+										</form>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--여기까지 결제페이지-->
+</main>
+
+</html>

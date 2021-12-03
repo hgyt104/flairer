@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link type="text/css" rel="stylesheet" th:href="@{/bootstrap/bootstrap.min.css}">
+
+	<link type="text/css" rel="stylesheet" th:href="@{/css/common.css}">
+	<link type="text/css" rel="stylesheet" th:href="@{/css/review.css}">
+
+	<!--jquery 구버전 사용-->
+	<script type="text/javascript" th:src="@{/jquery/jquery.js}"></script>
+	<script type="text/javascript" th:src="@{/jquery/jquery-3.6.0.js}"></script>
+	<script type="text/javascript" th:src="@{/bootstrap/bootstrap.bundle.min.js}"></script>
+
+	<script type="text/javascript" th:src="@{/js/header.js}"></script>
+	<script type="text/javascript" th:src="@{/js/board.js}"></script>
+
+
+	<title>Sentir L'odeur</title>
+</head>
+
+<body>
+
+	<!--게시판 수정/삭제 -->
+	<div class="row">
+		<script th:inline="javascript">
+			if (window.name == "update") {
+				window.opener.parent.location.href = "/board/boardmodifyview?bcode=" +/*[[${bcode}]]*/;
+			} else if (window.name == 'delete') {
+				alert('삭제되었습니다.');
+				var uri1 = "/board/replydelete?rcode=";
+				var uri2 = /*[[${param.rcode}]]*/;
+				var uri3 = "&bcode=";
+				var uri4 = /*[[${bcode}]]*/;
+				window.opener.parent.location.href = uri1 + uri2 + uri3 + uri4;
+			}
+			window.close();
+		</script>
+	</div>
+	<!--게시판 수정/삭제 -->
+
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+<!-- index.html 고유 CSS 추가 -->
+
+<head>
+  <!-- index.html 고유 스크립트 추가 -->
+
+  <script type="text/javascript" th:src="@{/js/mypage.js}"></script>
+  <script type="text/javascript" th:src="@{/jquery/jquery-3.6.0.js}"></script>
+  <script th:inline="javascript" th:if="${msg ne null}">
+    alert(/*[[${msg}]]*/);
+  </script>
+
+</head>
+
+<body>
+  <main class="container-fluid">
+    <div class="row">
+      <script th:inline="javascript">
+        if (window.name == 'delete') {
+          alert('회원 정보가 삭제되었습니다.');
+          window.opener.parent.location.href = "/memberdelete";
+        }
+        window.close();
+      </script>
+    </div>
+  </main>
+</body>
+
+</html>

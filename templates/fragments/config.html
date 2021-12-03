@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+  <head th:fragment="configFragment">
+    <meta charset="UTF-8" />
+    <!-- 공통으로 쓰이는 css파일을넣는다.-->
+    
+    
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link type="text/css" rel="stylesheet" th:href="@{/bootstrap/bootstrap.min.css}">
+	<link type="text/css" rel="stylesheet" th:href="@{/css/common.css}">
+	<link type="text/css" rel="stylesheet" th:href="@{/css/header.css}">
+	<link type="text/css" rel="stylesheet" th:href="@{/css/footer.css}">
+    
+    <style>
+       .ui-autocomplete {
+            max-height: 300px;
+            overflow-y: auto;
+            /* prevent horizontal scrollbar */
+            overflow-x: hidden;
+            /* add padding to account for vertical scrollbar */
+            padding-right: 20px;
+           
+        } 
+       
+	</style>
+    <!-- 공통으로 쓰이는 css파일을넣는다.-->
+    
+    
+    <!-- 컨텐츠페이지의 CSS 영역이 들어감 건들면 안됌-->
+    <th:block layout:fragment="css"></th:block>
+	<!-- 컨텐츠페이지의 CSS 영역이 들어감 건들면 안됌-->
+	
+	
+    <!-- 공통으로 쓰이는 js파일을넣는다.-->
+  
+ 	<script type="text/javascript" th:src="@{/jquery/jquery-3.6.0.js}"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<script type="text/javascript" th:src="@{/js/common.js}"></script>
+    <!--검색기능  -->
+    <script>
+    var fix;
+    $(function(){
+    	
+    	$("#searchid").autocomplete({
+    		source : function( request, response ){
+    			$.ajax({
+    				type : 'get',
+    				url : "/prod/json",
+    				dataType : "json",
+    				data : "name=" + $("#searchid").val(), 
+    				success : function(data){
+    					fix = $('#ui-id-1');
+    					if(fix.hasClass('fixed-top')) fix.removeClass('fixed-top');
+    					response(
+    							$.map(data,function(item){//json[i] 번째 에 있는게 item 임
+    					
+		    						return{
+		    						//UI 에서 보여지는 글자, 실제 검색어랑 비교 대상
+		    						//그냥 사용자 설정값?
+		    						//이런식으로 사용
+		    							label : item.pictureurl, 
+		    							value : item.name,
+		    							code  : item.pcode,
+		    							cate  : item.category
+    						}
+    					})
+    				  );
+    				}
+    			});
+    		},
+    		select : function(event, ui){
+    			
+    			location.href = "/prod/" + ui.item.cate +"/" + ui.item.code;
+    		},
+    		focus : function(event, ui){
+    			return false;//한글 에러 잡기용도로 사용됨
+    		},
+    		minLength : 1,// 최소 글자수
+    		autoFocus : true,//첫번째 항목 자동 포커스 기본값 false
+    		classes : {
+    			"ui-autocomplete" :"highlight",
+    			
+    			
+    		},
+    		delay : 500,
+    		 position: {my : "right top", at: "right bottom" },   //잘 모르겠음 
+             close : function(event){   //자동완성창 닫아질때 호출
+                
+             }
+    	}).autocomplete("instance")._renderItem = function( ul, item ) {//요 부분이 UI를 마음대로 변경하는 부분
+    		ul.css('z-index','2000');
+    		return $( "<li  >" ) //기본 tag가 li로 되어 있음 
+    		.append( "<div >"+ '<img style="width:50px; height:50px;" src="/img/' + item.label + '">' + "&nbsp;" + item.value + "</div>" )//여기에다가 원하는 모양의 HTML을 만들면 UI가 원하는 모양으로 변함.
+    		.appendTo(ul);
+    	
+    	}
+    });
+		$(window).scroll(function(){
+			fix = $('#ui-id-1');
+			if(!fix.hasClass('fixed-top')) fix.addClass('fixed-top');
+		});
+
+	</script>
+	<!--검색기능  -->
+	
+	
+	
+    <!-- 공통으로 쓰이는 js파일을넣는다.-->
+    
+    <!-- 컨텐츠페이지의 스크립트 영역이 들어감  건들면 안됌-->
+    <th:block layout:fragment="script"></th:block>
+    <!-- 컨텐츠페이지의 스크립트 영역이 들어감  건들면 안됌-->
+  </head>
+</html>

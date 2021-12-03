@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layouts/layout">
+<meta charset="UTF-8">
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+	<link type="text/css" rel="stylesheet" th:href="@{/css/board.css}">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+
+	<script type="text/javascript" th:src="@{/bootstrap/bootstrap.bundle.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/board.js}"></script>
+
+
+</th:block>
+
+<main layout:fragment="content" class="container-fluid">
+	<div class="col-8 offset-2">
+		<div class="row my-5 py-5">
+			<div class="col-8 offset-2 align-middle">
+				<h1 class="text-center">Review View</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-8 offset-2">
+				<div class="row">
+					<div class="form-floating mb-3 ">
+						<input type="text" class="form-control" id="floatingInput" th:value="${board.bid}" disabled
+							readonly>
+						<label for="floatingInput"> &nbsp;&nbsp;&nbsp;&nbsp;ID</label>
+					</div>
+					<div class="form-floating mb-3">
+						<input type="text" class="form-control" id="floatingInput"
+							th:value="${#dates.format(board.bdate, 'yy-MM-dd hh시 mm분')}" disabled readonly>
+						<label for="floatingInput">&nbsp;&nbsp;DATE</label>
+					</div>
+					<div class="form-floating mb-3">
+						<input type="text" class="form-control" id="floatingInput" th:value="${board.bhit}" disabled
+							readonly>
+						<label for="floatingInput">&nbsp;&nbsp;HIT</label>
+					</div>
+					<div class="form-floating mb-3">
+						<input type="text" class="form-control" id="floatingInput" th:value="${board.btitle}" disabled
+							readonly>
+						<label for="floatingInput">&nbsp;&nbsp;TITLE </label>
+					</div>
+					<div class="form-floating mb-3">
+						<textarea class="form-control" id="floatingTextarea2" style="height:100px"
+							th:text="${board.bcontent}" disabled readonly></textarea>
+						<label for="floatingTextarea2">&nbsp;&nbsp;CONTENT</label>
+					</div>
+				</div>
+				<br>
+				<div class="row" style="padding-bottom: 30px;">
+					<div class="col-7 offset-7">
+						<input class="btn btn-outline-dark" type="button" value="등록"
+							th:onclick="'location.href=\''+ @{/board/boardwriteview} + '\''">
+						<input class="btn btn-outline-dark" type="button" value="수정"
+							th:onclick="'open_win(\'' + @{/board/boardcheckview?bcode=} + ${board.bcode} + '\', \'update\')'">
+						<input class="btn btn-outline-dark" type="button" value="삭제"
+							th:onclick="'open_win(\'' + @{/board/boardcheckview?bcode=} + ${board.bcode} + '\', \'delete\')'">
+						<input class="btn btn-outline-dark" type="button" value="목록"
+							th:onclick="'location.href=\''+ @{/board/} + '\''">
+					</div>
+				</div>
+
+				<form name="frm" th:action="@{/board/replyWrite}">
+					<div class="form-floating input-group mb-3 ">
+						<input type="hidden" name="rbid" th:value="${session.loginUser.userid }">
+						<input type="hidden" name="bcode" th:value="${board.bcode}">
+						<table id="reply_writing">
+							<tr class="replytable">
+								<td class="reply" width="100" th:text="${session.loginUser.userid }"></td>
+								<td class="reply">
+									<textarea rows="3" cols="65" placeholder="댓글을 입력해주세요" name="rcontent"></textarea>
+								</td>
+								<td class="reply" width="50">
+									<input class="btn btn-outline-dark" id="button-addon2" type="submit" value="등록">
+								</td>
+							</tr>
+						</table>
+
+					</div>
+				</form>
+
+				<table id="reply_family " class="replytable">
+					<tr id="replyContent" th:each="reply : ${replyList }">
+						<td class="reply" width="96" height="50" th:text="${reply.rbid}"></td>
+						<td class="content_box reply"><textarea rows="3" id="r_content" cols="50" name="rcontent"
+								th:text="${reply.rcontent }" disabled></textarea></td>
+						<td class="reply" width="100" height="50" th:text="${reply.regdate }"></td>
+						<td class="reply">
+							<input class="find_rcode" type="hidden" name="rcode" th:value="${reply.rcode}">
+							<input class="edit btn btn-outline-dark boardbtn" type="button" value="수정">
+							<input class="del btn btn-outline-dark boardbtn" type="button" value="삭제"
+								th:onclick="'open_win(\'' + @{/board/replycheckpass(rcode=${reply.rcode}, bcode=${board.bcode})}+ '\', \'delete\')'">
+							<input class="btn btn-outline-dark boardbtn hdc1" type="hidden" value="완료">
+							<input class="btn btn-outline-dark boardbtn hdc2" type="hidden" value="취소">
+						</td>
+					</tr>
+				</table>
+
+				<br>
+				<br>
+			</div>
+		</div>
+	</div>
+</main>
+
+</html>

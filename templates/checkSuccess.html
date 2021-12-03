@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <!-- index.html 고유 CSS 추가 -->
+
+  <link type="text/css" rel="stylesheet" th:href="@{/css/review.css}">
+
+
+  <!-- index.html 고유 스크립트 추가 -->
+
+  <script type="text/javascript" th:src="@{/jquery/jquery-3.6.0.js}"></script>
+  <script type="text/javascript" th:src="@{/bootstrap/bootstrap.bundle.min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/board.js}"></script>
+  <script type="text/javascript" th:src="@{/js/header.js}"></script>
+  </th:block>
+</head>
+
+<body>
+  <main class="container-fluid">
+    <!--게시판 수정/삭제 -->
+    <div class="row">
+      <script th:inline="javascript">
+        if (window.name == "update") {
+          window.opener.parent.location.href = "/board/boardmodifyview?bcode=" +/*[[${param.bcode}]]*/;
+        } else if (window.name == 'delete') {
+          alert('삭제되었습니다.');
+          window.opener.parent.location.href = "/board/boarddelete?bcode=" +/*[[${param.bcode}]]*/;
+        }
+        window.close();
+      </script>
+    </div>
+    <!--게시판 수정/삭제 -->
+  </main>
+</body>
+
+</html>

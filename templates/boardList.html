@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layouts/layout">
+<meta charset="UTF-8" />
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+	<link type="text/css" rel="stylesheet" th:href="@{/css/board.css}">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+	<script type="text/javascript" th:src="@{/js/board.js}"></script>
+</th:block>
+
+<main layout:fragment="content" class="container-fluid">
+	<!--게시판 시작-->
+	<div class="row">
+		<div class="col-8 offset-2">
+			<div class="row my-5 py-5">
+				<div class="col-8 offset-2 align-middle">
+					<h1 class="text-center">Review</h1>
+				</div>
+			</div>
+			<div class="row">
+				<table id="list" class="table-hover table-striped text-center">
+					<tr id="toptitle">
+						<th class="title" width="50">No.</th>
+						<th class="title" width="100">Title.</th>
+						<th class="title" width="70">Author.</th>
+						<th class="title" width="40">Views.</th>
+						<th class="title" width="80">Date.</th>
+					</tr>
+					<tr id="line" th:each="board : ${dtos }"
+						th:onclick="'location.href=\''+ @{/board/} + ${board.bcode } + '\''">
+						<td th:text="${board.bcode }"></td>
+						<td th:text="${board.btitle }"></td>
+						<td th:text="${board.bid }"></td>
+						<td th:text="${board.bhit }"></td>
+						<td th:text="${board.bdate }"></td>
+					</tr>
+				</table>
+				<table>
+					<tr id="pageing" class="d-flex align-items-start col-6 ">
+						<td colspan="5">
+							<a class="btn"
+								th:href="@{/board/} + '?page=' + ${bPageVO.firstPageNum } + '&pageDataCount=' + ${bPageVO.pageDataCount}"><span>◀맨앞으로</span>
+							</a>
+							<a class="btn"
+								th:href="@{/board/} + '?page=' + ${bPageVO.prevPageNum } + '&pageDataCount=' + ${bPageVO.pageDataCount}">앞으로
+							</a>&nbsp;&nbsp;
+
+
+							<a class="btn" th:each="i : ${#numbers.sequence(bPageVO.startPageNum,bPageVO.endPageNum)}"
+								th:href="@{/board/} + '?page=' + ${i} + '&pageDataCount=' + ${bPageVO.pageDataCount}"
+								th:text="${i } +' '"></a>&nbsp;&nbsp;
+							<a class="btn"
+								th:href="@{/board/} + '?page=' + ${bPageVO.nextPageNum } + '&pageDataCount=' + ${bPageVO.pageDataCount}">뒤로
+							</a>&nbsp;&nbsp;
+							<a class="btn bpbutton"
+								th:href="@{/board/} + '?page=' + ${bPageVO.lastPageNum } + '&pageDataCount=' + ${bPageVO.pageDataCount}">맨뒤로▶
+							</a>&nbsp;&nbsp;
+
+						</td>
+					</tr>
+					<tr id="btn1">
+						<td><input type="button" value="글쓰기" class="btn btn-outline-dark col-12 "
+								th:onclick="location.href='/board/boardwriteview'">
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<!--여기까지 게시판-->
+</main>
+
+</html>

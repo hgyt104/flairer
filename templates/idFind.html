@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" th:src="@{/css/singup.css}"></script>
+    <script type="text/javascript" th:src="@{/jquery/jquery-3.6.0.js}"></script>
+    <script type="text/javascript" th:src="@{/js/signup.js}"></script>
+    <script>
+        function idAjaxFind() {
+
+            $.ajax({
+                type: "POST",
+                url: "/idFind",
+                data: {
+                    name: $('#nid').val(),
+                    phone: $('#ph').val()
+                },
+                dataType: "html",
+                success: function (data) {
+                    if (data == "1") {
+                        $('#print').text("이름과 전화번호 둘다 입력해주세요");
+                    } else if (data != "") {
+                        let arr = data.split("/");
+                        $('#print').text("아이디는  " + arr[0] + " 비밀번호는 " + arr[1]);
+                    } else {
+                        $('#print').text("일치하는 결과가 없습니다.");
+                    }
+                }
+            });
+        }
+
+    </script>
+
+</head>
+
+<body>
+    <main class="container-fluid">
+        <!-- 아이디 / 비밀번호 찾기 -->
+        <h2 style="text-align : center;">아이디 / 비밀번호 찾기</h2>
+        <form th:action="@{/idFind}" method="post" name="frm" style="text-align : center;">
+            <div>
+                이름 : <input type="text" id="nid" name="name" placeholder="이름을 입력해주세요"><br>
+                번호 : <input type="text" id="ph" name="phone" placeholder="000-0000-0000"><br>
+            </div>
+
+            <br>
+            <input type="button" value="찾기" onclick="idAjaxFind()">
+            <br>
+            <hr>
+
+        </form>
+        <div id="print" style="text-align : center;"></div>
+        <!-- 아이디 / 비밀번호 찾기 -->
+    </main>
+</body>
+
+</html>

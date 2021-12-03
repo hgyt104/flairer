@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layouts/layout">
+<meta charset="UTF-8">
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+
+	<link type="text/css" rel="stylesheet" th:href="@{/css/perfume.css}">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+	<script type="text/javascript" th:src="@{/js/productDetail.js}"></script>
+</th:block>
+
+<main layout:fragment="content" class="container-fluid">
+	<div class="row" id="list">
+		<!--왼쪽 이미지 시작-->
+		<div class="col-1"></div>
+		<div class="col-5">
+			<div id="img_box">
+				<img th:src="@{/img/} + ${product.pictureurl }">
+			</div>
+		</div>
+		<!--왼쪽 끝 -->
+		<!--오른쪽 상세목록페이지 시작-->
+		<div class="col-5">
+			<div id="perfum_name">
+				<p class="prodname" th:text="${product.name }"></p>
+			</div>
+			<div class="col">
+				<ul class="list_box1">
+					<li class="li-1">상품명 : &nbsp;<span th:text="${product.name }"></span></li>
+					<li class="li-1">판매가 : &nbsp;<span id="this" th:text="${product.price }"></span>원</li>
+				</ul>
+			</div>
+			<div class="col-10" id="btn">
+				<a th:href="@{/order/orderlist?pcode=} + ${product.pcode } + '&amount=1' " class="btn_1">바로 구매하기</a>
+				<a href="#" onclick="putCart(this)" th:attr=" data-pcode = ${product.pcode }" class="btn_2">장바구니</a>
+			</div>
+			<!--금액칸-->
+			<div class="col">
+				<div class="money_box">
+					<select id="amount">
+						<option value="1">1개</option>
+						<option value="2">2개</option>
+						<option value="3">3개</option>
+					</select> <span class="t_t">총 상품금액 : <span id="price" th:text="${product.price }"></span>원</span>
+				</div>
+			</div>
+		</div>
+		<div class="col-1"></div>
+		<!--오른쪽 끝-->
+		<!--상세정보 시작-->
+		<div class="row">
+			<div class="col">
+				<p>상세정보</p>
+				<div class="long" th:if="${product.des1 != null}">
+					<img class="long_img" th:src="@{/img/perfume/des/} + ${product.des1 }">
+				</div>
+				<div class="long" th:if="${product.des2 != null}">
+					<img class="long_img" th:src="@{/img/perfume/des/} + ${product.des2 }">
+				</div>
+				<div class="long" th:if="${product.des3 != null}">
+					<img class="long_img" th:src="@{/img/perfume/des/} + ${product.des3 }">
+				</div>
+				<div class="Top_btn">
+					<a href="#"><button class="button">TOP</button></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+
+</html>

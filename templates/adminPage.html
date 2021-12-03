@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layouts/layout">
+<meta charset="UTF-8" />
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+	<link type="text/css" rel="stylesheet" th:href="@{/css/review2.css}">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+	<script type="text/javascript" th:src="@{/js/adminpage.js}"></script>
+</th:block>
+
+<main layout:fragment="content" class="container-fluid">
+	<!--관리자 페이지 시작-->
+	<div class="row">
+		<div class="col-10 offset-1">
+			<div class="row my-5 py-5">
+				<div class="col-8 offset-2 align-middle">
+					<h1 class="text-center">Admin Page</h1>
+				</div>
+			</div>
+			<div class="col" id="adminnav">
+				<div class="col"></div>
+				<br>
+				<ul class="nav nav-tabs">
+					<li class="nav-item">
+						<a class="nav-link " type="button" th:onclick="'location.href=\''+ @{/admin} + '\''">회원 관리</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button"
+							aria-expanded="false">상품 관리 </a>
+						<ul class="dropdown-menu">
+							<li><a class="dropdown-item" type="button"
+									th:onclick="'location.href=\''+ @{/admin} + '?menu='+'product'+'&category=1\''">남자
+									향수 관리</a></li>
+							<li>
+								<hr class="dropdown-divider">
+							</li>
+							<li><a class="dropdown-item" type="button"
+									th:onclick="'location.href=\''+ @{/admin} + '?menu='+'product'+'&category=2\''">여자
+									향수 관리</a></li>
+							<li>
+								<hr class="dropdown-divider">
+							</li>
+							<li><a class="dropdown-item" type="button"
+									th:onclick="'location.href=\''+ @{/admin} + '?menu='+'product'+'&category=3\''">디퓨저
+									관리</a></li>
+							<li>
+								<hr class="dropdown-divider">
+							</li>
+							<li><a class="dropdown-item" type="button"
+									th:onclick="'location.href=\''+ @{/admin} + '?menu='+'product'+'&category=4\''">캔들
+									관리</a></li>
+							<li>
+								<hr class="dropdown-divider">
+							</li>
+						</ul>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link " type="button"
+							th:onclick="'location.href=\''+ @{/admin} + '?menu='+'board\''">게시판 관리</a>
+
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" type="button"
+							th:onclick="'location.href=\''+ @{/admin} + '?menu='+'payment\''">주문 정보</a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="row">
+				<div class="col tableFixHead ">
+					<table class="scrolltable" style="border: 1px ">
+						<thead >
+							<tr th:if="${members != null}" >
+								<th class="per5">번호</th>
+								<th class="per9">이름</th>
+								<th class="per5">아이디</th>
+								<th class="per9">비밀번호</th>
+								<th class="per25">주소</th>
+								<th class="per15">전화번호</th>
+								<th class="per5">성별</th>
+								<th class="per9">가입일자</th>
+								<th class="per9">활성화</th>
+								<th class="per5">권한</th>
+								<th class="per4"> - </th>
+							</tr>
+							<tr th:if="${products != null}">
+								<th class="per5">번호</th>
+								<th class="per15">상품명</th>
+								<th class="per9">가격</th>
+								<th class="per5">수량</th>
+								<th class="per6">카테고리</th>
+								<th class="per14">메인사진</th>
+								<th class="per14">설명1</th>
+								<th class="per14">설명2</th>
+								<th class="per14">설명3</th>
+								<th class="per4"> - </th>
+							</tr>
+							<tr th:if="${boards != null}">
+								<th class="per5">번호</th>
+								<th class="per5">작성자</th>
+								<th class="per5">암호</th>
+								<th class="per20">제목</th>
+								<th class="per55">내용</th>
+								<th class="per10">작성일</th>
+								<th class="per4"> - </th>
+							</tr>
+							<tr th:if="${payments != null}">
+								<th class="per15">번호</th>
+								<th class="per15">구매자</th>
+								<th class="per15">상품코드</th>
+								<th class="per10">수량</th>
+								<th class="per10">상태코드</th>
+								<th class="per35">구매일</th>
+								<th class="per4"> - </th>
+							</tr>
+						</thead>
+						<!-- 회원관리 -->
+						<tbody id="newProduct">
+							<tr th:each="member : ${members }">
+								<td class="per5 rowColumn" th:contenteditable="false" th:data-type="member"
+									th:data-code="${member.mcode}" th:data-colname="mcode"
+									th:data-default="${member.mcode }" th:text="${member.mcode }"></td>
+								<td class="per9 rowColumn" th:contenteditable="false" th:data-type="member"
+									th:data-code="${member.mcode}" th:data-colname="name"
+									th:data-default="${member.name }" th:text="${member.name }"></td>
+								<td class="per5 rowColumn" th:contenteditable="false" th:data-type="member"
+									th:data-code="${member.mcode}" th:data-colname="userid"
+									th:data-default="${member.userid }" th:text="${member.userid }"></td>
+								<td class="per9 rowColumn" th:contenteditable="false" th:data-type="member"
+									th:data-code="${member.mcode}" th:data-colname="pwd"
+									th:data-default="${member.pwd }" th:text="${member.pwd }"></td>
+								<td class="per25 rowColumn" th:contenteditable="false" th:data-type="member"
+									th:data-code="${member.mcode}" th:data-colname="address"
+									th:data-default="${member.address }" th:text="${member.address }"></td>
+								<td class="per15 rowColumn" th:contenteditable="false" th:data-type="member"
+									th:data-code="${member.mcode}" th:data-colname="phone"
+									th:data-default="${member.phone }" th:text="${member.phone }"></td>
+								<td class="per5 rowColumn" th:contenteditable="false" th:data-type="member"
+									th:data-code="${member.mcode}" th:data-colname="gender"
+									th:data-default="${member.gender }" th:text="${member.gender }"></td>
+								<td class="per9 rowColumn" th:contenteditable="false" th:data-type="member"
+									th:data-code="${member.mcode}" th:data-colname="regdate"
+									th:data-default="${member.regdate }" th:text="${member.regdate }"></td>
+								<td class="per9 rowColumn" th:contenteditable="false" th:data-type="member"
+									th:data-code="${member.mcode}" th:data-colname="active"
+									th:data-default="${member.active }" th:text="${member.active }"></td>
+								<td class="per5 rowColumn" th:contenteditable="false" th:data-type="member"
+									th:data-code="${member.mcode}" th:data-colname="admin"
+									th:data-default="${member.admin }" th:text="${member.admin }"></td>
+								<td class="per4">
+
+
+									<form method="post" th:action="@{/admin}">
+										<input type="hidden" name="_method" value="delete" />
+										<input type="hidden" name="type" value="member" />
+										<input type="hidden" name="code" th:value="${member.mcode }" />
+										<input type="submit" value="삭제">
+									</form>
+								</td>
+
+
+							<!-- 상품 -->
+							</tr>
+							<tr th:each="product : ${products }">
+								<td class="per5 rowColumn" th:contenteditable="false" th:data-type="product"
+									th:data-code="${product.pcode}" th:data-colname="pcode"
+									th:data-default="${product.pcode }" th:text="${product.pcode }"></td>
+								<td class="per15 rowColumn" th:contenteditable="false" th:data-type="product"
+									th:data-code="${product.pcode}" th:data-colname="name"
+									th:data-default="${product.name }" th:text="${product.name }"></td>
+								<td class="per9 rowColumn" th:contenteditable="false" th:data-type="product"
+									th:data-code="${product.pcode}" th:data-colname="price"
+									th:data-default="${product.price }" th:text="${product.price }"></td>
+								<td class="per5 rowColumn" th:contenteditable="false" th:data-type="product"
+									th:data-code="${product.pcode}" th:data-colname="stock"
+									th:data-default="${product.stock }" th:text="${product.stock }"></td>
+								<td class="per6 rowColumn" th:contenteditable="false" th:data-type="product"
+									th:data-code="${product.pcode}" th:data-colname="category"
+									th:data-default="${product.category }" th:text="${product.category }"></td>
+								<td class="per14 rowColumn" th:contenteditable="false" th:data-type="product"
+									th:data-code="${product.pcode}" th:data-colname="pictureurl"
+									th:data-default="${product.pictureurl }" th:text="${product.pictureurl }"
+									th:data-tooltip="'<div style=\'position:relative; text-align: center;\'><img width=\'70\' height=\'70\' alt=\'등록된 이미지가 없습니다\'  src=\''+@{/img/}+${product.pictureurl }+'\'>'">
+								</td>
+								<td class="per14 rowColumn" th:contenteditable="false" th:data-type="product"
+									th:data-code="${product.pcode}" th:data-colname="des1"
+									th:data-default="${product.des1 }" th:text="${product.des1 }"></td>
+
+
+								<td class="per14 rowColumn" th:contenteditable="false" th:data-type="product"
+									th:data-code="${product.pcode}" th:data-colname="des2"
+									th:data-default="${product.des2 }" th:text="${product.des2 }"></td>
+
+
+								<td class="per14 rowColumn" th:contenteditable="false" th:data-type="product"
+									th:data-code="${product.pcode}" th:data-colname="des3"
+									th:data-default="${product.des3 }" th:text="${product.des3 }"></td>
+
+
+								<td class="per4">
+
+
+									<form method="post" th:action="@{/admin}">
+										<input type="hidden" name="_method" value="delete" />
+										<input type="hidden" name="type" value="product" />
+										<input type="hidden" name="code" th:value="${product.pcode }" />
+										<input type="hidden" name="menu" value="product" />
+										<input type="hidden" name="cate" th:value="${product.category }" />
+										<input type="submit" value="삭제">
+									</form>
+
+								</td>
+							</tr>
+							
+							<!-- 게시판 -->
+							<tr th:each="board : ${boards }">
+								<td class="per5 rowColumn" th:contenteditable="false" th:data-type="board"
+									th:data-code="${board.bcode}" th:data-colname="bcode"
+									th:data-default="${board.bcode }" th:text="${board.bcode }"></td>
+								<td class="per5 rowColumn" th:contenteditable="false" th:data-type="board"
+									th:data-code="${board.bcode}" th:data-colname="bid" th:data-default="${board.bid}"
+									th:text="${board.bid}"></td>
+								<td class="per5 rowColumn" th:contenteditable="false" th:data-type="board"
+									th:data-code="${board.bcode}" th:data-colname="bpwd" th:data-default="${board.bpwd}"
+									th:text="${board.bpwd}"></td>
+								<td class="per20 rowColumn" th:contenteditable="false" th:data-type="board"
+									th:data-code="${board.bcode}" th:data-colname="btitle"
+									th:data-default="${board.btitle}" th:text="${board.btitle}"></td>
+								<td class="per55 rowColumn" th:contenteditable="false" th:data-type="board"
+									th:data-code="${board.bcode}" th:data-colname="bcontent"
+									th:data-default="${board.bcontent}" th:text="${board.bcontent}"></td>
+								<td class="per10 rowColumn" th:contenteditable="false" th:data-type="board"
+									th:data-code="${board.bcode}" th:data-colname="bdate"
+									th:data-default="${board.bdate}" th:text="${board.bdate}"></td>
+								<td class="per4">
+
+
+									<form method="post" th:action="@{/admin}">
+										<input type="hidden" name="_method" value="delete" />
+										<input type="hidden" name="type" value="board" />
+										<input type="hidden" name="code" th:value="${board.bcode }" />
+										<input type="hidden" name="menu" value="board" />
+										<input type="submit" value="삭제">
+									</form>
+
+								</td>
+							</tr>
+							
+							<!-- 결제정보 -->
+							<tr th:each="payment : ${payments }">
+								<td class="per15 rowColumn" th:contenteditable="false" th:data-type="payment"
+									th:data-code="${payment.pa_code}" th:data-colname="pa_code"
+									th:data-default="${payment.pa_code}" th:text="${payment.pa_code}"></td>
+								<td class="per15 rowColumn" th:contenteditable="false" th:data-type="payment"
+									th:data-code="${payment.pa_code}" th:data-colname="mcode"
+									th:data-default="${payment.mcode}" th:text="${payment.mcode}"></td>
+								<td class="per15 rowColumn" th:contenteditable="false" th:data-type="payment"
+									th:data-code="${payment.pa_code}" th:data-colname="pcode"
+									th:data-default="${payment.pcode}" th:text="${payment.pcode}"></td>
+								<td class="per10 rowColumn" th:contenteditable="false" th:data-type="payment"
+									th:data-code="${payment.pa_code}" th:data-colname="amount"
+									th:data-default="${payment.amount}" th:text="${payment.amount}"></td>
+								<td class="per10 rowColumn" th:contenteditable="false" th:data-type="payment"
+									th:data-code="${payment.pa_code}" th:data-colname="active"
+									th:data-default="${payment.active}" th:text="${payment.active}"></td>
+								<td class="per35 rowColumn" th:contenteditable="false" th:data-type="payment"
+									th:data-code="${payment.pa_code}" th:data-colname="paydate"
+									th:data-default="${payment.paydate}" th:text="${payment.paydate}"></td>
+								<td class="per4">
+
+
+									<form method="post" th:action="@{/admin}">
+										<input type="hidden" name="_method" value="delete" />
+										<input type="hidden" name="type" value="payment" />
+										<input type="hidden" name="code" th:value="${payment.pa_code}" />
+										<input type="hidden" name="menu" value="payment" />
+										<input type="submit" value="삭제">
+									</form>
+
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div id="product_reg" th:if="${products != null}" style="margin:15px;">
+					<input id="addbtn" type="button" value="+상품 등록" onclick="add_input()">
+				</div>
+			</div>
+		</div>
+		<!--여기까지 관리자 페이지-->
+</main>
+
+</html>

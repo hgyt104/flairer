@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="layouts/layout">
+<meta charset="UTF-8">
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/signup2.css}">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+    <script type="text/javascript" th:src="@{/js/signup.js}"></script>
+</th:block>
+
+<main layout:fragment="content" class="container-fluid">
+    <div class="row" id="info">
+        <div class="col-8 offset-2">
+            <h1>회원정보 수정 </h1>
+        </div>
+        <div class="col-8 offset-2">
+            <hr style="color: black;">
+        </div>
+        <div class="col-8 offset-2">
+            <form th:action="@{/membermodfiy}" method="post" name="frm">
+                <input type="hidden" name="command" value="MemberController">
+                <table>
+                    <tr>
+                        <td class="line"><span class="dot">*&nbsp;</span> 이름 </td>
+                        <td>
+                            <input class="box" type="text" name="name" th:value="${session.loginUser.name }" readonly>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="line"><span class="dot">*&nbsp;</span>아이디</td>
+                        <td>
+                            <input id="Add_ID" class="box" type="text" name="userid"
+                                th:value="${session.loginUser.userid }" readonly>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="line"><span class="dot">*&nbsp;</span>비밀번호</td>
+                        <td>
+                            <input id="password_1" class="pw" type="password" name="pwd"
+                                th:value="${session.loginUser.pwd }">
+                            <span id="ano">8~15자리의 영문, 숫자, 특수문자의 입력이 가능합니다.</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="line"><span class="dot">*&nbsp;</span>비밀번호 확인</td>
+                        <td>
+                            <input id="password_2" class="pw" type="password" name="pwd_check"
+                                th:value="${session.loginUser.pwd }">
+                            <span id="alert-success">비밀번호가 일치합니다.</span>
+                            <span id="alert-danger">비밀번호가 일치하지 않습니다.</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="line"><span class="dot">*&nbsp;</span>주소</td>
+                        <td><input id="adr" class="box" type="text" name="address"
+                                th:value="${session.loginUser.address }"></td>
+                    </tr>
+                    <tr>
+                        <td class="line"><span class="dot">*&nbsp;</span>전화번호</td>
+                        <td><input class="box" type="text" name="phone" placeholder="000-0000-0000"
+                                th:value="${session.loginUser.phone }"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <input id="btn1" type="submit" value="완료" onclick="return joinCheck()">
+                            <input id="btn2" type="button" value="취소"
+                                th:onclick="'location.href=\''+ @{/mypage/mypage}+'\''">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" th:text="${message}"></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</main>
+
+</html>

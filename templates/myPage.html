@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layouts/layout">
+<meta charset="UTF-8" />
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+	<link type="text/css" rel="stylesheet" th:href="@{/css/mypage.css}">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+	<script type="text/javascript" th:src="@{/js/cart.js}"></script>
+	<script type="text/javascript" th:src="@{/js/mypage.js}"></script>
+
+</th:block>
+
+<main layout:fragment="content" class="container-fluid">
+	<!--마이페이지 시작-->
+	<div id="mypage">
+		<div class="row">
+			<div class="col-1"></div>
+			<div class="col-10">
+				<!--마이페이지 제목-->
+				<div id="mypage_title" class="py-5 my-5">
+					<h1>My page</h1>
+				</div>
+
+				<div id="hello">
+					<h2 style="text-align:center;"
+						th:text="${session.loginUser.name } + ' 고객님,환영합니다^^&nbsp;&nbsp;&nbsp;&nbsp;고민은 배송만 늦출뿐~~♡'">
+					</h2>
+				</div>
+				<div class="col-12">
+					<input class="memberbutton" type="button" th:onclick="'location.href=\''+ @{/membermodfiyview}+'\''"
+						value="회원정보 수정">
+
+
+					<input class="memberbutton" type="button" value="회원 탈퇴"
+						th:onclick=" 'open_win(\'' + @{/deletecheckview(userid=${loginUser.userid}, pwd=${loginUser.pwd})} + '\',\'delete\')' " />
+				</div>
+				<br>
+
+				<div class="col"></div>
+				<div class=" col-1"></div>
+				<!--주문상황-->
+				<div id="order">
+					<p>주문현황(건)</p>
+					<hr>
+					<div id="order_title">
+						<div class="order_menu sub_title">
+							결제완료<br> <strong th:text="${countActive[0] }"></strong>
+						</div>
+						<div class="order_menu sub_title">
+							배송중<br> <strong th:text="${countActive[1] }"></strong>
+						</div>
+						<div class="order_menu">
+							배송완료<br> <strong th:text="${countActive[2] }"></strong>
+						</div>
+					</div>
+				</div>
+				<!--최근 주문 정보-->
+				<div id="order_info">
+					<p>최근 주문 정보</p>
+					<hr style="margin: 10px">
+					<div class="order_box_or">
+						<table>
+							<colgroup>
+								<col width="15%">
+								<col width="20%">
+								<col width="20%">
+								<col width="5%">
+								<col width="15%">
+								<col width="10%">
+								<col width="15%">
+							</colgroup>
+							<thead>
+								<tr id="tbl_head">
+									<th>구매일</th>
+									<th>상품 정보</th>
+									<th>상품명</th>
+									<th>구매 수량</th>
+									<th>구매 금액</th>
+									<th>배송 상태</th>
+									<th>구매 총액</th>
+								</tr>
+							</thead>
+							<tbody id="tbl_body">
+								<tr th:if="${outlists eq null}">
+									<td colspan="7">내역이 없습니다</td>
+								</tr>
+
+								<th:block th:each="lists : ${outlists}">
+									<th:block th:each="payment : ${lists}">
+										<tr
+											th:class="${paymentStat.first and paymentStat.last} ? 'top_line bottom_line' : (${paymentStat.first} ? 'top_line' : (${paymentStat.last} ? 'bottom_line'))">
+											<td th:if="${paymentStat.first}" th:rowspan="${#lists.size(lists)}"
+												th:text="${payment.paydate }"></td>
+											<td><img class='img' th:src="@{/img/} + ${payment.pictureurl }"></td>
+											<td th:text="${payment.pname }"></td>
+											<td th:text="${payment.amount }"></td>
+											<td><span class="main_price" th:text="${payment.price }"></span>원</td>
+											<td>
+												<th:block th:if="${payment.active eq 2}">결제완료</th:block>
+												<th:block th:if="${payment.active eq 3}">배송중</th:block>
+												<th:block th:if="${payment.active eq 4}">배송완료</th:block>
+											</td>
+											<td th:if="${paymentStat.first}" th:rowspan="${#lists.size(lists)}">
+												<span class="main_price" th:text="${totalCnt[listsStat.index]}"></span>원
+											</td>
+										</tr>
+									</th:block>
+								</th:block>
+
+							</tbody>
+						</table>
+					</div>
+					<!--최근 본 상품-->
+					<div id="order_new">
+						<p>최근 본 상품</p>
+						<hr>
+						<div th:each="product : ${recent}">
+							<a th:href="@{/prod/detail?pcode=}+ ${product.pcode} ">
+								<img th:src="@{/img/} + ${product.pictureurl }">
+							</a> <span th:text="${product.name }"></span><br><span class="main_price"
+								th:text="${product.price }"></span><span>원</span>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div class="col-1"></div>
+		</div>
+	</div>
+	<!--여기까지 마이페이지!-->
+</main>
+
+</html>
